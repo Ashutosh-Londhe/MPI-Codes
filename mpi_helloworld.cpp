@@ -1,6 +1,7 @@
 #include <mpi.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include <iostream>
+
+using namespace std;
 
 int main(int argc, char **argv) {
     int mpi_rank, mpi_size;
@@ -8,16 +9,16 @@ int main(int argc, char **argv) {
     char proc_name[MPI_MAX_PROCESSOR_NAME];
 
     // Initialize the MPI environment
-    MPI_Init(&argc, &argv);
+    MPI::Init(argc, argv);
 
     // Get the number of processes
-    MPI_Comm_size(MPI_COMM_WORLD, &mpi_size);
+    mpi_size = MPI::COMM_WORLD.Get_size();
 
     // Get the rank of the process
-    MPI_Comm_rank(MPI_COMM_WORLD, &mpi_rank);
+    mpi_rank = MPI::COMM_WORLD.Get_rank();
     
     // Get the name of the processor
-    MPI_Get_processor_name(proc_name, &len);
+    MPI::Get_processor_name(proc_name, len);
 
     printf("Hello world from Rank: %d, out of total: %d. Processor name: %s\n", mpi_rank, mpi_size, proc_name);
 
